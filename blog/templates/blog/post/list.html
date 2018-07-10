@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+
 {% block title %}首页{% endblock %}
 
 {% block content %}
@@ -25,7 +26,7 @@
         <p class="date">
             Published {{ post.publish }} by {{ post.author }}
         </p>
-        {{ post.body|slice:'180'|linebreaks }}
+        {{ post.body|slice:'150'|linebreaks }}
     {% endfor %}
     {% include "blog/pagination.html" with page=posts %}
 {% endblock %}
