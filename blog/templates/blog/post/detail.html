@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -41,7 +42,7 @@
             <p class="info">
                 第{{ forloop.counter }}条评论，{{ comment.name }}在{{ comment.created }}提交
             </p>
-            {{ comment.body|linebreaks }}
+            {{ comment.body|markdown }}
         </div>
     {% empty %}
         <p>还没有任何评论。</p>
