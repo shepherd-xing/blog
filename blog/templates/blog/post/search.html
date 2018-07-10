@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if "query" in request.GET %}
-        <h1>Posts containing "{{ cd.query }}"</h1>
+        <h1>包含{{ cd.query }}的文章</h1>
         <h3>找到{{ total_results }}项结果</h3>
         {% for result in results %}
             {% with post=result.object %}
