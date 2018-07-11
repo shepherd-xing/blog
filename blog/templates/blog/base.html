@@ -9,12 +9,19 @@
 </head>
 <body>
     <div id="content">
+        <h1><a href="{% url 'blog:post_list' %}">月明星稀的博客</a></h1>
         {% block content %}
         {% endblock %}
     </div>
     <div id="sidebar">
         <h2>月明星稀的博客</h2>
         <p>月明星稀，乌鹊南飞。<br>绕树三匝，何枝可依？</p>
+        <h3>搜索文章</h3>
+        <form action="{% url 'blog:post_search' %}" method="get">
+            <input type="text" name="query" style="background:white">
+            <input type="submit" value="搜索">
+        </form>
+        <div style="clear:both"></div>
         <p>共有{% total_posts %}篇文章。</p>
         <p><a href="{% url 'blog:post_feed' %}">订阅到我的RSS feed</a></p>
         <h3>最新的文章</h3>

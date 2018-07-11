@@ -4,7 +4,6 @@
 {% block title %}首页{% endblock %}
 
 {% block content %}
-    <h1>月明星稀的博客</h1>
     {% if tag %}
         <h2>标签为{{ tag.name }}的文章</h2>
     {% endif %}
@@ -27,7 +26,7 @@
         <p class="date">
             Published {{ post.publish }} by {{ post.author }}
         </p>
-        {{ post.body|markdown|truncatechars_html:150 }}
+        {{ post.body|markdown|truncatechars_html:130 }}
     {% endfor %}
     {% include "blog/pagination.html" with page=posts %}
 {% endblock %}

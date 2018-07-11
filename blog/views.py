@@ -9,6 +9,7 @@ from django.db.models import Count
 from haystack.query import SearchQuerySet
 # Create your views here.
 def post_list(request, tag_slug=None):
+    form = SearchForm
     object_list = Post.published.all()
     tag = None
     if tag_slug:
@@ -22,7 +23,8 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(1)
-    return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag})
+    context = {'page':page, 'posts':posts, 'tag':tag, 'form':form}
+    return render(request, 'blog/post/list.html', context)
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published',
@@ -74,7 +76,7 @@ def post_search(request):
     cd = None
     results = None
     total_results = None
-    if 'query' in request.GET:
+    if request.GET.get('query'):
         form = SearchForm(request.GET)
         if form.is_valid():
             cd = form.cleaned_data
