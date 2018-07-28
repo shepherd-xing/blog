@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'haystack',
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,6 +126,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # EMAIL
 EMAIL_HOST = 'smtp-mail.outlook.com'
@@ -135,7 +142,41 @@ EMAIL_USE_TLS = True
 # HAYSTACK
 HAYSTACK_CONNECTIONS = {
     'default':{
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/blog'
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# Heroku设置
+if os.getcwd() == '/app':
+    import dj_database_url
+    DATABASES = {
+        'default':dj_database_url.config(default='postgres://localhost')
+    }
+    # 让request.is_secure()承认X-Forwarded-Proto头
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    # 支持所有的主机头(host header)
+    ALLOWED_HOSTS = ['*']
+
+    # 静态文件配置
+    STATIC_URL = '/static/'
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+
+
+
+
+
+
+
+
