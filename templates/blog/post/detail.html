@@ -42,7 +42,7 @@
             <p class="info">
                 第{{ forloop.counter }}条评论，{{ comment.name }}在{{ comment.created }}提交
             </p>
-            {{ comment.body|markdown }}
+            <p id="comment-content">{{ comment.body|markdown }}</p>
         </div>
     {% empty %}
         <p>还没有任何评论。</p>
@@ -54,9 +54,21 @@
         <form action="." method="post">
             {% csrf_token %}
             {{ comment_form.as_p }}
-            <p><input type="submit" value="评论"></p>
+            <p><input id="btn" type="submit" value="评论"></p>
         </form>
     {% endif %}
+
+<script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            var name=$("#id_name").val();
+            var email=$("#id_email").val();
+            var body=$("#id_body").val();
+            $.post('.', {'name':name, 'email':email, 'body':body}, function(data){
+                console.log('ok');
+        })
+    })
+</script>
 {% endblock %}
 
 
