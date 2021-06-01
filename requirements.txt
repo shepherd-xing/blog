@@ -17,6 +17,6 @@ pytz==2018.5
 requests==2.19.1
 static3==0.7.0
 Unidecode==1.0.22
-urllib3==1.23
+urllib3==1.26.5
 Whoosh==2.7.4
 psycopg>=2.6.1
