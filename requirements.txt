@@ -10,7 +10,7 @@ gunicorn==19.9.0
 idna==2.7
 jieba==0.39
 Markdown==2.6.11
-Pillow==5.2.0
+Pillow==9.0.0
 pysolr==3.6.0
 python-slugify==1.2.5
 pytz==2018.5
